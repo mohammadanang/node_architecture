@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({ // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
 app.use(routes); // read routes from index.js file
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server listening on port: ${port}`);
 });
+
+module.exports = server;
