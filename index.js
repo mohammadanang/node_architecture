@@ -1,8 +1,18 @@
 const express = require('express');
-const app = express();
 const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-dotenv.config();
+const app = express();
+const port = process.env.PORT || 3000;
+
+dotenv.config(); // passing data from .env file
+
+app.use(cors()); // enabling cors
+app.use(bodyParser.urlencoded({ // parse application/x-www-form-urlencoded
+    extended: false
+}));
+app.use(bodyParser.json()); // parse application/json
 
 app.get('/', (req, res) => {
     res.status(200).json({
@@ -12,6 +22,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server listening on port: ${process.env.PORT}`);
+app.listen(port, () => {
+    console.log(`Server listening on port: ${port}`);
 });
