@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const config = require('../../config/database');
+const config = require(__dirname + '/../../config/database');
 const db = {};
 
 const dev = config.development;
@@ -10,9 +10,15 @@ const prod = config.production;
 
 let sequelize;
 if (process.env.NODE_ENV === 'development') {
-    sequelize = new Sequelize(dev.database, dev.username, dev.password, dev);
+    sequelize = new Sequelize(dev.database, dev.username, dev.password, {
+        host: dev.host,
+        dialect: dev.dialect
+    });
 } else {
-    sequelize = new Sequelize(prod.database, prod.username, prod.password, prod);
+    sequelize = new Sequelize(prod.database, prod.username, prod.password, {
+        host: prod.host,
+        dialect: prod.dialect
+    });
 }
 
 fs
@@ -42,7 +48,5 @@ sequelize
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-db.user = require('./user')(sequelize, Sequelize);
 
 module.exports = db;

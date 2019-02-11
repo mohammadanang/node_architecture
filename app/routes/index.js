@@ -7,3 +7,5 @@ app.get('/', (req, res) => {
         message: 'Welcome to the beginning of nothingness'
     });
 });
+
+app.use('/api/users', require('./users')); // user routes
