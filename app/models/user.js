@@ -10,8 +10,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     timestamps: false
   });
+
   user.associate = function (models) {
     // associations can be defined here
+    // user.belongsToMany(models.role, {
+    //   through: models.roleUser,
+    //   foreignKey: 'user_id',
+    //   otherKey: 'role_id'
+    // });
   };
 
   return user;
