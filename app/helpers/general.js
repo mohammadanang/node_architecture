@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 async function hashing(input) {
     const result = await new Promise((resolve, reject) => {
@@ -10,7 +10,6 @@ async function hashing(input) {
             });
         });
     });
-    console.log(result);
 
     return result;
 }
