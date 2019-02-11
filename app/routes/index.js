@@ -1,6 +1,6 @@
 const app = module.exports = require('express')();
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     res.status(200).json({
         code: 200,
         status: 'success',
