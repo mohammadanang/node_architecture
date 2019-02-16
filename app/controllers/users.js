@@ -1,4 +1,5 @@
 const models = require('../models');
+const helper = require('../helpers/general');
 
 async function getAll(req, res) {
     const users = await models.user.findAll({
@@ -37,7 +38,34 @@ async function getDetail(req, res) {
     });
 }
 
+async function create(req, res) {
+    const user = await models.user.create({
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username,
+        password: await helper.hashing(req.body.password),
+        created_at: new Date(),
+        updated_at: new Date()
+    });
+
+    if (user === null) {
+        return res.status(400).json({
+            code: 400,
+            status: 'error',
+            message: 'something wrong'
+        });
+    }
+
+    return res.status(201).json({
+        code: 201,
+        status: 'success',
+        message: 'user created',
+        data: user
+    });
+}
+
 module.exports = {
     getAll,
-    getDetail
+    getDetail,
+    create
 };
